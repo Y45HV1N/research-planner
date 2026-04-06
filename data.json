@@ -424,6 +424,23 @@
       "category": "Published paper",
       "subcategory": "",
       "completedDate": ""
+    },
+    {
+      "id": "mnnckntvha8zf",
+      "title": "The Advantage of Big Team Science: Lessons Learned from Cognitive Science",
+      "status": "completed",
+      "priority": 17,
+      "collaborators": "Vaidis et al",
+      "deadline": "",
+      "target": "Collabra",
+      "difficulty": "Very Low",
+      "requirements": "",
+      "driveLink": "",
+      "description": "",
+      "notes": "",
+      "category": "",
+      "subcategory": "",
+      "completedDate": ""
     }
   ],
   "categories": [

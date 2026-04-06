@@ -228,15 +228,77 @@ function SetupScreen({ onComplete }) {
   const [token, setToken] = useState("");
   const [testing, setTesting] = useState(false);
   const [error, setError] = useState("");
+  const [phase, setPhase] = useState("token");
+  const [verifiedToken, setVerifiedToken] = useState(null);
+  const [existingData, setExistingData] = useState(null);
+  const [existingSha, setExistingSha] = useState(null);
+  const [clearing, setClearing] = useState(false);
+
   const handleConnect = async () => {
     setTesting(true); setError("");
     try {
       await ghVerifyToken(token.trim());
-      localStorage.setItem(LS_TOKEN, token.trim());
-      onComplete(token.trim());
+      const repoInfo = getRepoInfo();
+      const result = await ghFetch(token.trim(), repoInfo);
+      if (result.content && result.content.projects && result.content.projects.length > 0) {
+        setVerifiedToken(token.trim());
+        setExistingData(result.content);
+        setExistingSha(result.sha);
+        setPhase("data-check");
+      } else {
+        localStorage.setItem(LS_TOKEN, token.trim());
+        onComplete(token.trim());
+      }
     } catch (e) { setError(e.message || "Connection failed."); }
     setTesting(false);
   };
+
+  const handleKeepData = () => {
+    localStorage.setItem(LS_TOKEN, verifiedToken);
+    onComplete(verifiedToken);
+  };
+
+  const handleStartFresh = async () => {
+    setClearing(true);
+    try {
+      const repoInfo = getRepoInfo();
+      const emptyData = { projects: [], categories: [] };
+      await ghSave(verifiedToken, repoInfo, emptyData, existingSha);
+      localStorage.setItem(LS_TOKEN, verifiedToken);
+      localStorage.setItem(LS_KEY, JSON.stringify(emptyData));
+      onComplete(verifiedToken);
+    } catch (e) { setError("Could not clear data: " + (e.message || "Unknown error")); setClearing(false); }
+  };
+
+  if (phase === "data-check") {
+    const numProjects = existingData.projects.length;
+    const titles = existingData.projects.slice(0, 5).map(p => p.title);
+    return (
+      <div className="setup-screen">
+        <div className="setup-card">
+          <div style={{fontSize:32,marginBottom:8}}>&#x25C8;</div>
+          <h1>Existing Data Found</h1>
+          <p className="subtitle">We found <b>{numProjects} project{numProjects !== 1 ? "s" : ""}</b> already saved in this planner.</p>
+          <div style={{background:"var(--surface-alt)",border:"1px solid var(--border)",borderRadius:8,padding:"12px 16px",marginBottom:16,fontSize:13,color:"var(--text-muted)"}}>
+            <div style={{fontWeight:700,marginBottom:6,color:"var(--text)"}}>Projects found:</div>
+            {titles.map((t,i) => <div key={i} style={{padding:"2px 0"}}>&bull;&nbsp;&nbsp;{t}</div>)}
+            {numProjects > 5 && <div style={{padding:"2px 0",fontStyle:"italic"}}>...and {numProjects - 5} more</div>}
+          </div>
+          <p style={{fontSize:13,color:"var(--text)",marginBottom:16,lineHeight:1.6}}>
+            <b>Is this your data?</b> If you are setting up a second device, keep it.
+            If you just copied this planner from someone else, start fresh.
+          </p>
+          <button className="setup-btn" onClick={handleKeepData} style={{marginBottom:8}}>Yes, this is mine. Keep it.</button>
+          <button className="setup-btn" onClick={handleStartFresh} disabled={clearing}
+            style={{background:"var(--surface)",color:"var(--danger)",border:"1px solid var(--border)",marginTop:0}}>
+            {clearing ? "Clearing..." : "Not mine. Start fresh with an empty planner."}
+          </button>
+          {error && <p className="setup-error">{error}</p>}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="setup-screen">
       <div className="setup-card">

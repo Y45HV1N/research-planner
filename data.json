@@ -101,6 +101,23 @@
       "category": "",
       "subcategory": "",
       "completedDate": ""
+    },
+    {
+      "id": "mnnbz8q0l902k",
+      "title": "ESM 2",
+      "status": "not_started",
+      "priority": 6,
+      "collaborators": "Tobias, Irina",
+      "deadline": "",
+      "target": "",
+      "difficulty": "Moderate",
+      "requirements": "Irina's first first authorship",
+      "driveLink": "",
+      "description": "",
+      "notes": "",
+      "category": "",
+      "subcategory": "",
+      "completedDate": ""
     }
   ],
   "categories": []

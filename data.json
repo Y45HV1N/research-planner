@@ -458,6 +458,23 @@
       "category": "Published paper",
       "subcategory": "",
       "completedDate": ""
+    },
+    {
+      "id": "mnncmryhgrcw4",
+      "title": "VVG Belief Update",
+      "status": "completed",
+      "priority": 17,
+      "collaborators": "Tobias",
+      "deadline": "",
+      "target": "PSPB",
+      "difficulty": "High",
+      "requirements": "",
+      "driveLink": "",
+      "description": "",
+      "notes": "",
+      "category": "Published paper",
+      "subcategory": "",
+      "completedDate": ""
     }
   ],
   "categories": [

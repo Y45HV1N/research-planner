@@ -322,6 +322,23 @@
       "category": "",
       "subcategory": "",
       "completedDate": ""
+    },
+    {
+      "id": "mnncapaqlvmg1",
+      "title": "Gorilla Mega Study paper 5",
+      "status": "ongoing",
+      "priority": 14,
+      "collaborators": "Tobias",
+      "deadline": "",
+      "target": "",
+      "difficulty": "Low",
+      "requirements": "",
+      "driveLink": "",
+      "description": "large scale advanced validation of BPAQ",
+      "notes": "",
+      "category": "",
+      "subcategory": "",
+      "completedDate": ""
     }
   ],
   "categories": []

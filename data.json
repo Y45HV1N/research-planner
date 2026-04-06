@@ -390,7 +390,26 @@
       "category": "",
       "subcategory": "",
       "completedDate": ""
+    },
+    {
+      "id": "mnncieiofu9pq",
+      "title": "Face Mask",
+      "status": "completed",
+      "priority": 17,
+      "collaborators": "Tobias",
+      "deadline": "",
+      "target": "Scientific Reports",
+      "difficulty": "High",
+      "requirements": "",
+      "driveLink": "",
+      "description": "",
+      "notes": "",
+      "category": "Published paper",
+      "subcategory": "",
+      "completedDate": ""
     }
   ],
-  "categories": []
+  "categories": [
+    "Published paper"
+  ]
 }
